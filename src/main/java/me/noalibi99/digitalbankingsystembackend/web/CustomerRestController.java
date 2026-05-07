@@ -17,7 +17,7 @@ import java.util.List;
 public class CustomerRestController {
     private BankAccountService bankAccountService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<CustomerDTO> customers() {
         return bankAccountService.listCustomers();
     }
@@ -27,7 +27,7 @@ public class CustomerRestController {
         return bankAccountService.getCustomer(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
         return bankAccountService.saveCustomer(customerDTO);
     }
