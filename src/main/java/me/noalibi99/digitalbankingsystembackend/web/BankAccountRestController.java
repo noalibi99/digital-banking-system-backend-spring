@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/api/accounts")
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin("*")
 public class BankAccountRestController {
     private final BankAccountService bankAccountService;
 
@@ -55,26 +56,19 @@ public class BankAccountRestController {
     }
 
     @PostMapping("/transfer")
-    public void transfer(
-            @RequestParam String accountIdSource,
-            @RequestParam String accountIdDestination,
-            @RequestParam double amount) {
-        bankAccountService.transfer(accountIdSource, accountIdDestination, amount);
+    public void transfer(@RequestBody TransferRequestDTO transferRequestDTO) {
+        this.bankAccountService.transfer(transferRequestDTO.getSourceAccountId(), transferRequestDTO.getDestinationAccountId(), transferRequestDTO.getAmount());
     }
 
     @PostMapping("/debit")
-    public void debit(
-            @RequestParam String accountId,
-            @RequestParam double amount,
-            @RequestParam String description) {
-        bankAccountService.debit(accountId, amount, description);
+    public DebitDTO debit(@RequestBody DebitDTO debitDTO) {
+        this.bankAccountService.debit(debitDTO.getAccountId(), debitDTO.getAmount(), debitDTO.getDescription());
+        return debitDTO;
     }
 
     @PostMapping("/credit")
-    public void credit(
-            @RequestParam String accountId,
-            @RequestParam double amount,
-            @RequestParam String description) {
-        bankAccountService.credit(accountId, amount, description);
+    public CreditDTO credit(@RequestBody CreditDTO creditDTO) {
+        this.bankAccountService.credit(creditDTO.getAccountId(), creditDTO.getAmount(), creditDTO.getDescription());
+        return creditDTO;
     }
 }

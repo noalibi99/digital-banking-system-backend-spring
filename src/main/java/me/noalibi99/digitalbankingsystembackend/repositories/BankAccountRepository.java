@@ -4,6 +4,8 @@ import me.noalibi99.digitalbankingsystembackend.entities.BankAccount;
 import me.noalibi99.digitalbankingsystembackend.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BankAccountRepository extends JpaRepository<BankAccount, String> {
+import java.util.List;
 
+public interface BankAccountRepository extends JpaRepository<BankAccount, String> {
+        public List<BankAccount> findByCustomerId(Long customerId);
 }

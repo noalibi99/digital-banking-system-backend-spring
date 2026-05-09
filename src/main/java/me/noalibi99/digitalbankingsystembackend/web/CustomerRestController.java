@@ -2,6 +2,7 @@ package me.noalibi99.digitalbankingsystembackend.web;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.noalibi99.digitalbankingsystembackend.dtos.BankAccountDTO;
 import me.noalibi99.digitalbankingsystembackend.dtos.CustomerDTO;
 import me.noalibi99.digitalbankingsystembackend.entities.Customer;
 import me.noalibi99.digitalbankingsystembackend.services.BankAccountService;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/customers")
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin("*")
 public class CustomerRestController {
     private BankAccountService bankAccountService;
 
@@ -32,6 +34,11 @@ public class CustomerRestController {
         return bankAccountService.saveCustomer(customerDTO);
     }
 
+    @GetMapping("/search")
+    public List<CustomerDTO> searchCustomers(@RequestParam(name = "keyword", defaultValue = "")String keyword) {
+        return bankAccountService.searchCustomers(keyword);
+    }
+
     @PutMapping("/{id}")
     public CustomerDTO updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         customerDTO.setId(id);
@@ -41,5 +48,10 @@ public class CustomerRestController {
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable Long id) {
         bankAccountService.deleteCustomer(id);
+    }
+
+    @GetMapping("/{customerId}/accounts")
+    public List<BankAccountDTO> getCustomerBankAccounts(@PathVariable Long customerId) {
+        return bankAccountService.getCustomerBankAccounts(customerId);
     }
 }
