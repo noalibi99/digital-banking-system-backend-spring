@@ -61,6 +61,7 @@ public class DigitalBankingSystemBackendApplication {
                         savingAccount.setCurrency("MAD");
                         savingAccount.setCustomer(customer);
                         accountRepository.save(savingAccount);
+
                     }
             );
 
